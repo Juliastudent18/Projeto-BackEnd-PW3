@@ -11,7 +11,7 @@
     "etec",
     "embu"
   ],
-  "author": "Cristiano Correa de Moraes",
+  "author": "Eduardo Luca Pereira Barbosa",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",

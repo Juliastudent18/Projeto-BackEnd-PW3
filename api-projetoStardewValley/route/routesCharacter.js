@@ -1,8 +1,11 @@
 const express = require('express');
+const Sequelize = require('sequelize');
+
 
 /* IMPORTA O MODEL DE LIVRO */
 const modelCharacter = require('../model/modelCharacter');
-
+const modelMoradia = require('../model/modelMoradia');
+const modelFavorite = require('../model/modelFavorite');
 
 /* GERECIADOR DE ROTAS */
 const router = express.Router();
@@ -51,7 +54,36 @@ router.post('/inserirPessoa', (req, res)=>{
 
 router.get('/listagemPessoas', (req, res)=>{
 
-    modelCharacter.findAll()
+    modelCharacter.findAll({
+        attributes: [
+            'id',
+            ['nome', 'character_nome'], // <- Aqui: ALIAS safadão
+            'descricao',
+            ['moradia', 'moradia_id'], 
+            'data_nasc',
+            ['fvrt_perso', 'favorite_id']
+        ],
+        include: [
+            {
+                model: modelFavorite,
+                attributes: [
+                    ['id', 'favorite_id'], 
+                    ['nome', 'favorite_nome'], 
+                    ['descricao', 'favorite_descricao']
+                ],
+                required: true
+            },
+            {
+                model: modelMoradia,
+                attributes: [
+                    ['id', 'moradia_id'], 
+                    ['moradia', 'moradia_nome'], 
+                    ['descricao', 'moradia_descricao']
+                ],
+                required: true
+            }
+        ]
+    })
     .then(
         (response)=>{
             return res.status(201).json(
