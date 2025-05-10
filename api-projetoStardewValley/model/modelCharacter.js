@@ -19,15 +19,15 @@ const modelCharacter = connection.define(
         },
         descricao:{
             type:Sequelize.STRING(255),
-            allowNull:true
+            allowNull:false
         },
         moradia:{
             type:Sequelize.INTEGER,
             autoIncrement: false
         },
         data_nasc:{
-            type:Sequelize.DATE,
-            allowNull:true
+            type:Sequelize.DATEONLY,
+            allowNull:false
         },
         fvrt_perso:{
             type:Sequelize.INTEGER,
@@ -37,24 +37,23 @@ const modelCharacter = connection.define(
 );
 
 modelFavorite.hasMany(modelCharacter, {
-    foreignKey: 'fvrt_perso',
-    sourceKey: 'id'
+    foreignKey: 'fvrt_perso'
 });
 
 modelCharacter.belongsTo(modelFavorite, {
-    foreignKey: 'id',
-    sourceKey: 'fvrt_perso'
+    foreignKey: 'fvrt_perso',
+    targetKey: 'id'
 });
 
 modelMoradia.hasMany(modelCharacter, {
-    foreignKey: 'moradia',
-    sourceKey: 'id'
+    foreignKey: 'moradia'
 });
 
 modelCharacter.belongsTo(modelMoradia, {
-    foreignKey: 'id',
-    sourceKey: 'moradia'
+    foreignKey: 'moradia',
+    targetKey: 'id'
 });
+
 
 // modeLivro.sync({force:true});
 

@@ -57,7 +57,7 @@ router.get('/listagemPessoas', (req, res)=>{
     modelCharacter.findAll({
         attributes: [
             'id',
-            ['nome', 'character_nome'], // <- Aqui: ALIAS safadão
+            ['nome', 'character_nome'],
             'descricao',
             ['moradia', 'moradia_id'], 
             'data_nasc',

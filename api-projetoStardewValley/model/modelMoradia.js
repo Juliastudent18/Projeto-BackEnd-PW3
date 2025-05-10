@@ -12,11 +12,11 @@ const modelMoradia = connection.define(
         },
         moradia:{
             type:Sequelize.STRING(40),
-            allowNull:true
+            allowNull:false
         },
         descricao:{
             type:Sequelize.STRING(255),
-            allowNull:true
+            allowNull:false
         }
     }
 );
