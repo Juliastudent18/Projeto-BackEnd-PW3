@@ -1,23 +1,18 @@
 const express = require('express');
 const Sequelize = require('sequelize');
 
-
-/* IMPORTA O MODEL DE LIVRO */
 const modelCharacter = require('../model/modelCharacter');
 const modelMoradia = require('../model/modelMoradia');
 const modelFavorite = require('../model/modelFavorite');
 
-/* GERECIADOR DE ROTAS */
 const router = express.Router();
 
-/* ROTA DE TESTE DE CONEXÃO COM A API */
 router.get('/', (req, res)=>{
 
     return res.status(200).json({status:'TESTE DE CONEXÃO COM A API!'});
 
 });
 
-/* ROTA DE INSERÇÃO DE LIVRO */
 router.post('/inserirPessoa', (req, res)=>{
 
     let {nome, descricao, moradia, data_nasc, fvrt_perso} = req.body;
@@ -69,7 +64,8 @@ router.get('/listagemPessoas', (req, res)=>{
                 attributes: [
                     ['id', 'favorite_id'], 
                     ['nome', 'favorite_nome'], 
-                    ['descricao', 'favorite_descricao']
+                    ['descricao', 'favorite_descricao'],
+                    ['img', 'favorite_img']
                 ],
                 required: true
             },
@@ -78,7 +74,8 @@ router.get('/listagemPessoas', (req, res)=>{
                 attributes: [
                     ['id', 'moradia_id'], 
                     ['moradia', 'moradia_nome'], 
-                    ['descricao', 'moradia_descricao']
+                    ['descricao', 'moradia_descricao'],
+                    ['img', 'favorite_img']
                 ],
                 required: true
             }
@@ -110,8 +107,16 @@ router.get('/listagemPessoas/:id', (req, res)=>{
 
     let {id} = req.params;
 
-    modelCharacter.findByPk(id)
-    .then(
+    modelCharacter.findByPk(id, {
+        include: [
+            {
+                association: modelCharacter.associations.tbl_moradium
+            },
+            {
+                association: modelCharacter.associations.tbl_personagen
+            }
+        ]
+    }).then(
         (response)=>{
             return res.status(201).json(
                 {

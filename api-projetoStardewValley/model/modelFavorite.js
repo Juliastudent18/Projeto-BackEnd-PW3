@@ -17,10 +17,12 @@ const modelFavorite = connection.define(
         descricao:{
             type:Sequelize.STRING(255),
             allowNull:false
+        },
+        img:{
+            type:Sequelize.STRING(20),
+            allowNull:false
         }
     }
 );
-
-// modelFavorite.sync({force:true});
 
 module.exports = modelFavorite;

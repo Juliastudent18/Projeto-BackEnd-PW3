@@ -17,10 +17,12 @@ const modelMoradia = connection.define(
         descricao:{
             type:Sequelize.STRING(255),
             allowNull:false
+        },
+        img:{
+            type:Sequelize.STRING(20),
+            allowNull:false
         }
     }
 );
-
-// modelMoradia.sync({force:true});
 
 module.exports = modelMoradia;

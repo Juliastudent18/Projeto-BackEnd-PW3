@@ -67,7 +67,7 @@ router.get('/listagemPersonagens/:id', (req, res)=>{
     modelFavorite.findByPk(id)
     .then(
         (response)=>{
-            return res.status(201).json(
+            return res.status(200).json(
                 {
                     errorStatus:false,
                     mensageStatus:'PERSONAGEM RECUPERADO COM SUCESSO',
@@ -96,7 +96,7 @@ router.delete('/excluirPersonagem/:id', (req, res)=>{
         {where:{id}}
     ).then(
         ()=>{
-            return res.status(201).json(
+            return res.status(200).json(
                 {
                     errorStatus:false,
                     mensageStatus:'PERSONAGEM EXCLUIDO COM SUCESSO'
